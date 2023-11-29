@@ -30,7 +30,7 @@ import { mapValues } from 'lodash';
 import moment from 'moment'
 import openMap from 'react-native-open-maps';
 import ReactNativeAN from 'react-native-alarm-notification';
-import DateTimePicker from 'react-native-modal-datetime-picker';
+// import DateTimePicker from 'react-native-modal-datetime-picker';
 import { Card } from 'react-native-elements'
 
 const { RNAlarmNotification } = NativeModules;
@@ -713,13 +713,13 @@ class Home extends Component {
               {/* <Button title="GET DIRECTION" style={{ height: 30, width: '80%', marginTop: 30 }} onPress={this.getDirection} /> */}
             </View>
           </Modal>
-          <DateTimePicker
+          {/* <DateTimePicker
             isVisible={this.state.datePickerVisible}
             mode='date' onConfirm={this.handleDatePicker}
             minimumDate={this.state.min_time}
             maximumDate={this.state.max_time}
             onCancel={this.hideDatePicker}
-          />
+          /> */}
         </View>
       </Drawer>
     );

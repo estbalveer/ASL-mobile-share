@@ -7,7 +7,7 @@ import WaitingDialog from "../../components/waitingDialog";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 import ShakingText from 'react-native-shaking-text';
 import { AppStyles } from "../../styles/styles";
-import DatePicker from 'react-native-date-picker'
+// import DatePicker from 'react-native-date-picker'
 import moment from 'moment';
 import { scheduleActions } from '../../redux/actions/ScheduleAction'
 import { SERVER_URL } from "../../common/config";
@@ -500,7 +500,7 @@ class SchduleScreen extends Component {
                             onPress={this.schedule}>
                             <Text style={AppStyles.text}>SCHEDULE</Text>
                         </TouchableOpacity>
-                        <DatePicker
+                        {/* <DatePicker
                             modal
                             mode='date'
                             androidVariant='iosClone'
@@ -510,8 +510,8 @@ class SchduleScreen extends Component {
                             maximumDate={this.state.max_time}
                             onConfirm={this.handleDatePicker}
                             onCancel={this.hideDatePicker}
-                        />
-                        <DatePicker
+                        /> */}
+                        {/* <DatePicker
                             modal
                             mode='time'
                             androidVariant='iosClone'
@@ -519,7 +519,7 @@ class SchduleScreen extends Component {
                             open={this.state.timePickerVisible}
                             onConfirm={this.handleTimePicker}
                             onCancel={this.hideTimePicker}
-                        />
+                        /> */}
                     </View>
                 </KeyboardAwareScrollView>
 

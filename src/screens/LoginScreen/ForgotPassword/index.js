@@ -6,7 +6,6 @@ import StatusBarPlaceHolder from "../../../components/statusbarPlaceHolder";
 import WaitingDialog from "../../../components/waitingDialog";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
 import { AppStyles } from "../../../styles/styles";
-import DateTimePicker from 'react-native-modal-datetime-picker';
 import SimpleToast from "react-native-simple-toast";
 import { userActions } from "../../../redux/actions/AuthAction";
 import { bindActionCreators } from "redux";

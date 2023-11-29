@@ -5,7 +5,7 @@ import styles from './styles'
 import { Button, Chip } from 'react-native-paper'
 import { Calendar } from 'react-native-calendars'
 import moment from 'moment'
-import DatePicker from 'react-native-date-picker'
+// import DatePicker from 'react-native-date-picker'
 
 const LOCATION = [
   {
@@ -172,15 +172,15 @@ const FilterModal = ({
         </View>
       </ReactNativeModal>
       <View style={styles.calendarConntainer}>
-        <DatePicker
+        {/* <DatePicker
           modal
           mode='date'
           date={filterState.start_date || new Date()}
           open={isStartDatePickerOpen}
           onConfirm={handleConfirmDatePicker('start_date')}
           onCancel={() => setIsStartDatePickerOpen(false)}
-        />
-        <DatePicker
+        /> */}
+        {/* <DatePicker
           modal
           mode='date'
           date={filterState.end_date || new Date()}
@@ -188,7 +188,7 @@ const FilterModal = ({
           minimumDate={filterState.start_date}
           onConfirm={handleConfirmDatePicker('end_date')}
           onCancel={() => setIsEndDatePickerOpen(false)}
-        />
+        /> */}
       </View>
     </>
   )

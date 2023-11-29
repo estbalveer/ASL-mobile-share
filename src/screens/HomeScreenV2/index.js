@@ -54,23 +54,23 @@ LocaleConfig.locales['id'] = {
 };
 LocaleConfig.defaultLocale = 'id';
 
-const { RNAlarmNotification } = NativeModules;
-const RNEmitter = new NativeEventEmitter(RNAlarmNotification);
+// const { RNAlarmNotification } = NativeModules;
+// const RNEmitter = new NativeEventEmitter(RNAlarmNotification);
 
-const alarmNotifData = {
-  title: 'Scouthippo Notification',
-  message: 'Please check schedule.',
-  vibrate: true,
-  play_sound: true,
-  schedule_type: 'once',
-  channel: 'Require Notification',
-  data: { content: 'Schedule Notification' },
-  loop_sound: true,
-  has_button: true,
-  small_icon: "ic_launcher",
-  large_icon: "ic_launcher",
-  snooze_interval: 5,
-};
+// const alarmNotifData = {
+//   title: 'Scouthippo Notification',
+//   message: 'Please check schedule.',
+//   vibrate: true,
+//   play_sound: true,
+//   schedule_type: 'once',
+//   channel: 'Require Notification',
+//   data: { content: 'Schedule Notification' },
+//   loop_sound: true,
+//   has_button: true,
+//   small_icon: "ic_launcher",
+//   large_icon: "ic_launcher",
+//   snooze_interval: 5,
+// };
 // const tableData = []
 const getInitialDate = () => moment().format('YYYY-MM-DD');
 class Home extends Component {
@@ -117,51 +117,51 @@ class Home extends Component {
     };
   }
 
-  componentDidMount() {
-    // this.getAbsent()
-    this.getCompanyCanvasCheckinFeature()
-    this._subscribeDismiss = RNEmitter.addListener(
-      'OnNotificationDismissed',
-      (data) => {
-        const obj = JSON.parse(data);
-        console.log(`notification id: ${obj.id} dismissed`);
-      },
-    );
+  // componentDidMount() {
+  //   // this.getAbsent()
+  //   this.getCompanyCanvasCheckinFeature()
+  //   this._subscribeDismiss = RNEmitter.addListener(
+  //     'OnNotificationDismissed',
+  //     (data) => {
+  //       const obj = JSON.parse(data);
+  //       console.log(`notification id: ${obj.id} dismissed`);
+  //     },
+  //   );
 
-    this._subscribeOpen = RNEmitter.addListener(
-      'OnNotificationOpened',
-      (data) => {
-        console.log(data);
-        const obj = JSON.parse(data);
-        console.log(`app opened by notification: ${obj.id}`);
-      },
-    );
+  //   this._subscribeOpen = RNEmitter.addListener(
+  //     'OnNotificationOpened',
+  //     (data) => {
+  //       console.log(data);
+  //       const obj = JSON.parse(data);
+  //       console.log(`app opened by notification: ${obj.id}`);
+  //     },
+  //   );
 
-    // check ios permissions
-    if (Platform.OS === 'ios') {
-      this.showPermissions();
+  //   // check ios permissions
+  //   if (Platform.OS === 'ios') {
+  //     this.showPermissions();
 
-      ReactNativeAN.requestPermissions({
-        alert: true,
-        badge: true,
-        sound: true,
-      }).then(
-        (data) => {
-          console.log('RnAlarmNotification.requestPermissions', data);
-        },
-        (data) => {
-          console.log('RnAlarmNotification.requestPermissions failed', data);
-        },
-      );
-    }
+  //     ReactNativeAN.requestPermissions({
+  //       alert: true,
+  //       badge: true,
+  //       sound: true,
+  //     }).then(
+  //       (data) => {
+  //         console.log('RnAlarmNotification.requestPermissions', data);
+  //       },
+  //       (data) => {
+  //         console.log('RnAlarmNotification.requestPermissions failed', data);
+  //       },
+  //     );
+  //   }
 
-    this.getSchedule()
-  }
+  //   this.getSchedule()
+  // }
 
-  componentWillUnmount() {
-    this._subscribeDismiss.remove();
-    this._subscribeOpen.remove();
-  }
+  // componentWillUnmount() {
+  //   this._subscribeDismiss.remove();
+  //   this._subscribeOpen.remove();
+  // }
 
   onDayPress = day => {
     console.log("day")

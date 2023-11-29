@@ -12,7 +12,7 @@ import { ListItem, SearchBar } from 'react-native-elements';
 import moment from 'moment';
 import openMap from 'react-native-open-maps';
 import Modal from 'react-native-modal';
-import Pdf from 'react-native-pdf';
+// import Pdf from 'react-native-pdf';
 
 import AsyncStorage from '@react-native-community/async-storage';
 import { SERVER_URL } from "../../common/config";
@@ -180,7 +180,7 @@ class ResourceScreen extends Component {
                 >
                     <View style={styles.pdfcontainer}>
                         <Text style={{color: 'white', fontSize: 16}}>{this.state.selected_item}</Text>
-                        <Pdf
+                        {/* <Pdf
                             source={this.state.source}
                             onLoadComplete={(numberOfPages, filePath) => {
                                 console.log(`number of pages: ${numberOfPages}`);
@@ -194,7 +194,7 @@ class ResourceScreen extends Component {
                             onPressLink={(uri) => {
                                 console.log(`Link presse: ${uri}`)
                             }}
-                            style={styles.pdf} />
+                            style={styles.pdf} /> */}
                     </View>
 
                 </Modal>
