@@ -1,5 +1,5 @@
 #import "AppDelegate.h"
-#import <RnAlarmNotification.h>
+//#import <RnAlarmNotification.h>
 #import <UserNotifications/UNUserNotificationCenter.h>
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
@@ -25,9 +25,12 @@ static void InitializeFlipper(UIApplication *application) {
 }
 #endif
 
+
+@implementation AppDelegate
+
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center
        willPresentNotification:(UNNotification *)notification withCompletionHandler: (void (^)(UNNotificationPresentationOptions options))completionHandler {
-  [RnAlarmNotification didReceiveNotification:notification];
+//  [RnAlarmNotification didReceiveNotification:notification];
   completionHandler(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge);
 }
  
@@ -35,11 +38,9 @@ static void InitializeFlipper(UIApplication *application) {
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center
 didReceiveNotificationResponse:(UNNotificationResponse *)response
          withCompletionHandler:(void (^)(void))completionHandler  API_AVAILABLE(ios(10.0)){
-    [RnAlarmNotification didReceiveNotificationResponse:response];
+//    [RnAlarmNotification didReceiveNotificationResponse:response];
     completionHandler();
 }
-
-@implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

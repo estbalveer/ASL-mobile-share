@@ -19,60 +19,60 @@ import AbsentDetailScreen from '../screens/AbsentDetailScreen';
 
 const HomeStack = createSwitchNavigator(
   {
-    Home: {
-      screen: Home,
-      navigationOptions: {
-        header: null,
-      },
-    },
+    // Home: {
+    //   screen: Home,
+    //   navigationOptions: {
+    //     header: null,
+    //   },
+    // },
     Schedule: {
       screen: ScheduleScreen,
       navigationOptions: {
         header: null,
       },
     },
-    Absent: {
-      screen: AbsentScreen,
-      navigationOptions: {
-        headerShown: false,
-      },
-    },
-    DirectCheckin: {
-      screen: DirectCheckinScreen,
-      navigationOptions: {
-        headerShown: false,
-      },
-    },
-    Checkin: {
-      screen: CheckinScreen,
-      navigationOptions: {
-        headerShown: false,
-      },
-    },
-    Checkout: {
-      screen: CheckoutScreen,
-      navigationOptions: {
-        headerShown: true,
-      },
-    },
-    ClientDB: {
-      screen: ClientDBScreen,
-      navigationOptions: {
-        headerShown: true,
-      },
-    },
-    CreateClientScreen: {
-      screen: CreateClientScreen,
-      navigationOptions: {
-        headerShown: true,
-      },
-    },
-    ResourceScreen: {
-      screen: ResourceScreen,
-      navigationOptions: {
-        headerShown: true,
-      },
-    },
+    // Absent: {
+    //   screen: AbsentScreen,
+    //   navigationOptions: {
+    //     headerShown: false,
+    //   },
+    // },
+    // DirectCheckin: {
+    //   screen: DirectCheckinScreen,
+    //   navigationOptions: {
+    //     headerShown: false,
+    //   },
+    // },
+    // Checkin: {
+    //   screen: CheckinScreen,
+    //   navigationOptions: {
+    //     headerShown: false,
+    //   },
+    // },
+    // Checkout: {
+    //   screen: CheckoutScreen,
+    //   navigationOptions: {
+    //     headerShown: true,
+    //   },
+    // },
+    // ClientDB: {
+    //   screen: ClientDBScreen,
+    //   navigationOptions: {
+    //     headerShown: true,
+    //   },
+    // },
+    // CreateClientScreen: {
+    //   screen: CreateClientScreen,
+    //   navigationOptions: {
+    //     headerShown: true,
+    //   },
+    // },
+    // ResourceScreen: {
+    //   screen: ResourceScreen,
+    //   navigationOptions: {
+    //     headerShown: true,
+    //   },
+    // },
   },
   {
     initialRouteName: 'Home',
@@ -102,29 +102,29 @@ const AbsentStack = createSwitchNavigator(
 
 export const MainStack = createMaterialBottomTabNavigator(
   {
-    Home: {
-      screen: HomeStack,
-      navigationOptions: {
-        tabBarLabel: 'Home',
-        tabBarIcon: ({ tintColor }) => (
-          <FeatherIcon name="home" size={18} color={tintColor} />
-        )
-      }
-    },
-    Absent: {
-      screen: AbsentStack,
-      navigationOptions: {
-        tabBarLabel: 'Absent',
-        tabBarIcon: ({ tintColor }) => (
-          <FeatherIcon name="user-check" size={18} color={tintColor} />
-        )
-      }
-    },
+    Home: Home
+    //   screen: HomeStack,
+    //   navigationOptions: {
+    //     tabBarLabel: 'Home',
+    //     tabBarIcon: ({ tintColor }) => (
+    //       <FeatherIcon name="home" size={18} color={tintColor} />
+    //     )
+    //   }
+    // },
+    // Absent: {
+    //   screen: AbsentStack,
+    //   navigationOptions: {
+    //     tabBarLabel: 'Absent',
+    //     tabBarIcon: ({ tintColor }) => (
+    //       <FeatherIcon name="user-check" size={18} color={tintColor} />
+    //     )
+    //   }
+    // },
   },
   {
-    initialRouteName: 'Home',
-    barStyle: {
-      backgroundColor: '#3876BF'
-    }
+    // initialRouteName: 'Home',
+    // barStyle: {
+    //   backgroundColor: '#3876BF'
+    // }
   },
 );
