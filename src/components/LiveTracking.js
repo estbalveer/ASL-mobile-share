@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Button, PermissionsAndroid, Text, View, Linking, DeviceEventEmitter, Image } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react'
+import { Button, PermissionsAndroid, Text, View, Linking, DeviceEventEmitter, Image, AppState } from 'react-native';
 import RNLocation from 'react-native-location';
 import RNModal from 'react-native-modal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -37,6 +37,8 @@ const LiveTracking = () => {
     const dispatch = useDispatch()
     const user = useSelector(state => state.user)
     const androidVersion = Number(getSystemVersion().split('.')[0])
+    const appState = useRef(AppState.currentState);
+    const [appStateVisible, setAppStateVisible] = useState(appState.current);
 
     useEffect(() => {
       AsyncStorage.getItem('user')
@@ -72,6 +74,7 @@ const LiveTracking = () => {
             if (userLoginData && !userLoginData?.isAdmin) {
                 dispatch(setUser(JSON.parse(value)))
             } else {
+              console.log('should stop tracking')
               locationSubscription?.();
               clearTimeout(locationTimeout);
               await BackgroundService.stop()
@@ -153,6 +156,43 @@ const LiveTracking = () => {
       );
     }
 
+    useEffect(() => {
+      const subscription = AppState.addEventListener('change', nextAppState => {
+        if (
+          appState.current.match(/inactive|background/) &&
+          nextAppState === 'active'
+        ) {
+          console.log('App has come to the foreground!');
+        }
+  
+        appState.current = nextAppState;
+        setAppStateVisible(appState.current);
+        console.log('AppState', appState.current);
+      });
+  
+      return () => {
+        subscription.remove();
+      };
+    }, []);
+
+    useEffect(() => {
+      if (appStateVisible === 'active' && (Object.keys(user || {}).length && !user.isAdmin)) {
+        Geolocation.getCurrentPosition(
+          (position) => {
+              addMapTracker({
+                lat: position?.coords?.latitude,
+                long: position?.coords?.longitude,
+              })
+          },
+          (error) => {
+              console.log(error, 'error track location')
+          },
+          { enableHighAccuracy: false, timeout: 10000, maximumAge: 3000 },
+        );
+      }
+    }, [appStateVisible, user])
+    
+
     const handlePermission = async () => {
         try {
             Linking.openSettings();
@@ -175,55 +215,59 @@ const LiveTracking = () => {
       lat,
       long
     }) => {
-      const deviceId = await getUniqueId()
-      const osVersion = getSystemVersion()
-      const brandName = getBrand()
-      const modelName = getModel()
-      const appVersion = getVersion()
-      const buildNumber = getBuildNumber()
-      const apiLevel = await getApiLevel();
-      dispatch(createMapTrackingActions.createMapTracking({
-        user_id: user.user_id,
-        full_name: user.full_name,
-        company_id: user.company_id,
-        lat,
-        long,
-        device_id: deviceId,
-        os: 'android',
-        os_version: osVersion,
-        brand_name: brandName,
-        model_name: modelName,
-        app_version: appVersion,
-        build_number: buildNumber,
-        api_level: apiLevel,
-      }))
+      try {
+        const user = await AsyncStorage.getItem('user');
+        const parsedUser = JSON.parse(user)
+        const deviceId = await getUniqueId()
+        const osVersion = getSystemVersion()
+        const brandName = getBrand()
+        const modelName = getModel()
+        const appVersion = getVersion()
+        const buildNumber = getBuildNumber()
+        const apiLevel = await getApiLevel();
+        dispatch(createMapTrackingActions.createMapTracking({
+          user_id: parsedUser.user_id,
+          full_name: parsedUser.full_name,
+          company_id: parsedUser.company_id,
+          lat,
+          long,
+          device_id: deviceId,
+          os: 'android',
+          os_version: osVersion,
+          brand_name: brandName,
+          model_name: modelName,
+          app_version: appVersion,
+          build_number: buildNumber,
+          api_level: apiLevel,
+        }))
+      } catch (error) {
+        console.log(error)
+      }
     }
 
-    const addMapTrackerAlternative = async (taskDataArguments) => {
-      const { delay } = taskDataArguments;
-      await new Promise( async (resolve) => {
-          for (let i = 0; BackgroundService.isRunning(); i++) {
-            Geolocation.getCurrentPosition(
-                (position) => {
-                    addMapTracker({
-                      lat: position?.coords?.latitude,
-                      long: position?.coords?.longitude,
-                    })
-                },
-                (error) => {
-                    console.log(error, 'errorrrrrrrrrrrrrrrrrrrrrrrrrr')
-                },
-                { enableHighAccuracy: false, timeout: 10000, maximumAge: 3000 },
-            );
-            await sleep(delay);
-          }
-      });
-  };
+  //   const addMapTrackerAlternative = async (taskDataArguments) => {
+  //     const { delay } = taskDataArguments;
+  //     await new Promise( async (resolve) => {
+  //         for (let i = 0; BackgroundService.isRunning(); i++) {
+  //           Geolocation.getCurrentPosition(
+  //               (position) => {
+  //                   addMapTracker({
+  //                     lat: position?.coords?.latitude,
+  //                     long: position?.coords?.longitude,
+  //                   })
+  //               },
+  //               (error) => {
+  //                   console.log(error, 'errorrrrrrrrrrrrrrrrrrrrrrrrrr')
+  //               },
+  //               { enableHighAccuracy: false, timeout: 10000, maximumAge: 3000 },
+  //           );
+  //           await sleep(delay);
+  //         }
+  //     });
+  // };
 
     const runTracker = async (e) => {
       await Promise.all([
-        addMapTrackerAlternative(e),
-        // Example of an infinite loop task
         new Promise( async (resolve) => {
           RNLocation.requestPermission({
             ios: 'whenInUse',

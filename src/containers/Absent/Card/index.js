@@ -44,11 +44,11 @@ const AbsentCard = ({
                 color: '#fff',
                 paddingHorizontal: 4,
                 paddingVertical: 2,
-                backgroundColor: data?.check_out_datetime ? '#EE9322' : '#186F65',
+                backgroundColor: data?.is_late ? '#EE9322' : '#186F65',
                 borderRadius: 6,
                 marginRight: 8
               }}>
-                {data?.check_out_datetime ? 'Checkout' : 'Checkin'}
+                {data?.is_late ? 'Late' : 'Ontime'}
               </Text>
               ) : null
             }

@@ -22,16 +22,16 @@ import Geolocation from 'react-native-geolocation-service';
 import {getPreciseDistance} from 'geolib';
 import {Platform} from 'react-native';
 import SimpleToast from 'react-native-simple-toast';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import styles from './style';
 import axios from 'axios';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {customFormService} from '../../services/customForm/CustomForm';
 import {isFarFromLocation} from '../../utils/location';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import { screenHeight } from '../../styles/mixins';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import { requestCameraPermission } from '../../utils/permissions';
+import {screenHeight} from '../../styles/mixins';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {requestCameraPermission} from '../../utils/permissions';
 
 class CheckinScreen extends Component {
   constructor(props) {
@@ -58,7 +58,7 @@ class CheckinScreen extends Component {
         companyLatitude: null,
         companyLongitude: null,
         absentFeature: false,
-        lastAbsentTime: null
+        lastAbsentTime: null,
       },
       customUploadField: {},
       isOnsite: null,
@@ -259,87 +259,87 @@ class CheckinScreen extends Component {
     }
   };
 
-  selectPhotoOld = async () => {
-    const permissionGranted = await requestCameraPermission();
-      if (!permissionGranted) {
-          return
-      }
-    var options = {
-      title: 'Select Image',
-      mediaType: 'photo',
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-    launchImageLibrary(options, (response) => {
-      this.setState({
-        isUploadLoading: true,
-      });
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-        this.setState({
-          isUploadLoading: false,
-        });
-      } else if (response.errorMessage) {
-        console.log('ImagePicker Error: ', response.errorMessage);
-        this.setState({
-          isUploadLoading: false,
-        });
-      } else {
-        console.log(
-          'User selected a file form camera or gallery',
-          response.assets[0].uri,
-        );
-        const data = new FormData();
-        data.append('name', 'avatar');
-        data.append('fileData', {
-          uri: response.assets[0].uri,
-          type: response.assets[0].type,
-          name: response.assets[0].fileName,
-        });
-        const config = {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'multipart/form-data',
-          },
-          body: data,
-        };
-        fetch(`${SERVER_URL}upload`, config)
-          .then((res) => {
-            console.log(res);
-            return res.json();
-          })
-          .then((res) => {
-            console.log(res);
-            if (res?.path?.split?.('\\')?.[1] || res.name) {
-              SimpleToast.show('Image uploaded successfully');
-              this.setState({
-                ...this.state,
-                upload_picture: res?.path?.split?.('\\')?.[1] || res.name,
-                upload_picture_name: response.assets[0].fileName,
-              });
-            }
-            return true;
-          })
-          .catch((err) => {
-            console.log(err)
-            SimpleToast.show("Image failed to upload. Try Again!")
-          })
-          .finally(() => {
-            this.setState({
-              isUploadLoading: false,
-            });
-          });
-      }
-    });
-  };
+  // selectPhotoOld = async () => {
+  //   const permissionGranted = await requestCameraPermission();
+  //   if (!permissionGranted) {
+  //     return;
+  //   }
+  //   var options = {
+  //     title: 'Select Image',
+  //     mediaType: 'photo',
+  //     storageOptions: {
+  //       skipBackup: true,
+  //       path: 'images',
+  //     },
+  //   };
+  //   launchImageLibrary(options, (response) => {
+  //     this.setState({
+  //       isUploadLoading: true,
+  //     });
+  //     if (response.didCancel) {
+  //       console.log('User cancelled image picker');
+  //       this.setState({
+  //         isUploadLoading: false,
+  //       });
+  //     } else if (response.errorMessage) {
+  //       console.log('ImagePicker Error: ', response.errorMessage);
+  //       this.setState({
+  //         isUploadLoading: false,
+  //       });
+  //     } else {
+  //       console.log(
+  //         'User selected a file form camera or gallery',
+  //         response.assets[0].uri,
+  //       );
+  //       const data = new FormData();
+  //       data.append('name', 'avatar');
+  //       data.append('fileData', {
+  //         uri: response.assets[0].uri,
+  //         type: response.assets[0].type,
+  //         name: response.assets[0].fileName,
+  //       });
+  //       const config = {
+  //         method: 'POST',
+  //         headers: {
+  //           Accept: 'application/json',
+  //           'Content-Type': 'multipart/form-data',
+  //         },
+  //         body: data,
+  //       };
+  //       fetch(`${SERVER_URL}upload`, config)
+  //         .then((res) => {
+  //           console.log(res);
+  //           return res.json();
+  //         })
+  //         .then((res) => {
+  //           console.log(res);
+  //           if (res?.path?.split?.('\\')?.[1] || res.name) {
+  //             SimpleToast.show('Image uploaded successfully');
+  //             this.setState({
+  //               ...this.state,
+  //               upload_picture: res?.path?.split?.('\\')?.[1] || res.name,
+  //               upload_picture_name: response.assets[0].fileName,
+  //             });
+  //           }
+  //           return true;
+  //         })
+  //         .catch((err) => {
+  //           console.log(err);
+  //           SimpleToast.show('Image failed to upload. Try Again!');
+  //         })
+  //         .finally(() => {
+  //           this.setState({
+  //             isUploadLoading: false,
+  //           });
+  //         });
+  //     }
+  //   });
+  // };
 
   selectPhoto = async () => {
     const permissionGranted = await requestCameraPermission();
     if (!permissionGranted) {
-        return
+      return;
     }
     var options = {
       title: 'Take a Photo', // Change the title to reflect taking a photo
@@ -362,42 +362,59 @@ class CheckinScreen extends Component {
           isUploadLoading: false,
         });
       } else {
-        console.log('User took a photo', response.assets[0].uri);
-        const data = new FormData();
-        data.append('name', 'avatar');
-        data.append('fileData', {
-          uri: response.assets[0].uri,
-          type: response.assets[0].type,
-          name: response.assets[0].fileName,
-        });
-        const config = {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'multipart/form-data',
-          },
-          body: data,
-        };
-        fetch(`${SERVER_URL}upload`, config)
-          .then((res) => {
+        // Retry logic for the upload
+        const retryUpload = async (retryCount) => {
+          try {
+            const data = new FormData();
+            data.append('fileData', {
+              uri: response.assets[0].uri,
+              type: response.assets[0].type,
+              name: response.assets[0].fileName,
+            });
+            const config = {
+              method: 'POST',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'multipart/form-data',
+              },
+              body: data,
+            };
+
+            const res = await fetch(`${SERVER_URL}upload`, config);
             console.log(res);
-            return res.json();
-          })
-          .then((res) => {
-            console.log(res);
-            if (res?.path?.split?.('\\')?.[1] || res.name) {
-              SimpleToast.show('Image uploaded successfully');
-              this.setState({
-                ...this.state,
-                upload_picture: res?.path?.split?.('\\')?.[1] || res.name,
-                upload_picture_name: response.assets[0].fileName,
-              });
+
+            if (res.ok) {
+              const result = await res.json();
+              if (result?.path?.split?.('\\')?.[1] || result.name) {
+                SimpleToast.show('Image uploaded successfully');
+                this.setState({
+                  ...this.state,
+                  upload_picture:
+                    result?.path?.split?.('\\')?.[1] || result.name,
+                  upload_picture_name: response.assets[0].fileName,
+                });
+              }
+              return true;
+            } else {
+              throw new Error('HTTP error! Status: ' + res.status);
             }
-            return true;
-          })
+          } catch (error) {
+            console.log(error);
+            console.log('Image upload failed. Retrying...', 'retry count: '+(retryCount + 1))
+            if (retryCount < 3) {
+              return retryUpload(retryCount + 1);
+            } else {
+              throw new Error(
+                'Max retries reached. Unable to complete the request.',
+              );
+            }
+          }
+        };
+        // Initial upload attempt
+        retryUpload(0)
           .catch((err) => {
-            console.log(err)
-            SimpleToast.show("Image failed to upload. Try Again!")
+            console.error(err);
+            SimpleToast.show('Image failed to upload. Try Again!');
           })
           .finally(() => {
             this.setState({
@@ -409,21 +426,26 @@ class CheckinScreen extends Component {
   };
 
   checkIsLate(currentTime, lateTime) {
-    const [currentHour, currentMinute, currentSecond] = currentTime.split(':').map(Number);
+    if (!currentTime || !lateTime) {
+      return false;
+    }
+    const [currentHour, currentMinute, currentSecond] = currentTime
+      .split(':')
+      .map(Number);
     const [lateHour, lateMinute, lateSecond] = lateTime.split(':').map(Number);
 
     if (currentHour < lateHour) {
-        return false; // Current time is earlier than the late time
+      return false; // Current time is earlier than the late time
     } else if (currentHour === lateHour) {
-        if (currentMinute < lateMinute) {
-            return false; // Current time is in the same hour but earlier than the late time
-        } else if (currentMinute === lateMinute && currentSecond < lateSecond) {
-            return false; // Current time is in the same minute but earlier than the late time
-        }
+      if (currentMinute < lateMinute) {
+        return false; // Current time is in the same hour but earlier than the late time
+      } else if (currentMinute === lateMinute && currentSecond < lateSecond) {
+        return false; // Current time is in the same minute but earlier than the late time
+      }
     }
 
     return true; // Current time is later than or equal to the late time
-}
+  }
 
   processCheckin = async () => {
     if (
@@ -447,7 +469,10 @@ class CheckinScreen extends Component {
       overtime_notes: this.state.overtime_notes,
     };
     if (!this.state.absent.isCheckIn) {
-      body.is_late = this.checkIsLate(this.state.time, this.state.absent.lastAbsentTime)
+      body.is_late = this.checkIsLate(
+        this.state.time,
+        this.state.absent.lastAbsentTime,
+      );
     }
     fetch(
       `${SERVER_URL}${
@@ -509,7 +534,7 @@ class CheckinScreen extends Component {
             />
             <View></View>
           </View>
-          <View style={{ height: '100%', flexDirection: 'column' }}>
+          <View style={{height: '100%', flexDirection: 'column'}}>
             <View style={styles.mapContainer}>
               <MapView
                 provider={PROVIDER_GOOGLE}
@@ -520,22 +545,30 @@ class CheckinScreen extends Component {
                   latitudeDelta: 0.095,
                   longitudeDelta: 0.0921,
                 }}
-                showsUserLocation
-              >
+                showsUserLocation>
                 <Marker
                   title="Office"
                   coordinate={{
-                    latitude: parseFloat(this.state.absent.companyLatitude || 0),
-                    longitude: parseFloat(this.state.absent.companyLongitude || 0)
-                  }}
-                >
-                  <MaterialIcons name="location-city" size={36} color="#164863" />
+                    latitude: parseFloat(
+                      this.state.absent.companyLatitude || 0,
+                    ),
+                    longitude: parseFloat(
+                      this.state.absent.companyLongitude || 0,
+                    ),
+                  }}>
+                  <MaterialIcons
+                    name="location-city"
+                    size={36}
+                    color="#164863"
+                  />
                 </Marker>
               </MapView>
             </View>
             <View style={styles.absentContainer}>
               <View>
-                <ShakingText style={styles.error}>{this.state.error}</ShakingText>
+                <ShakingText style={styles.error}>
+                  {this.state.error}
+                </ShakingText>
                 {!this.state.absent.isLoading && (
                   <View>
                     <Text
