@@ -386,8 +386,8 @@ PODS:
     - React-Core
   - RNGestureHandler (2.9.0):
     - React-Core
-  - RNReanimated (1.2.0):
-    - React
+  - RNReanimated (1.13.4):
+    - React-Core
   - RNScreens (2.12.0):
     - React-Core
   - RNVectorIcons (7.1.0):
@@ -667,7 +667,7 @@ SPEC CHECKSUMS:
   RNCPushNotificationIOS: 61a7c72bd1ebad3568025957d001e0f0e7b32191
   RNDeviceInfo: 0a7c1d2532aa7691f9b9925a27e43af006db4dae
   RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
-  RNReanimated: 1b52415c4302f198cb581282a0166690bad62c43
+  RNReanimated: c1b56d030d1616239861534d9adb531f8cffab68
   RNScreens: 4b488fdf9537bbce829e2910c8cce1d17f6d9be8
   RNVectorIcons: bc69e6a278b14842063605de32bec61f0b251a59
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17

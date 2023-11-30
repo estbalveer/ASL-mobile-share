@@ -36,6 +36,7 @@
     "react-native-background-actions": "2.6.7",
     "react-native-calendars": "1.1266.0",
     "react-native-cardview": "2.0.5",
+    "react-native-date-picker": "^4.2.8",
     "react-native-device-info": "10.0.2",
     "react-native-drawer": "2.5.1",
     "react-native-elements": "3.0.0-alpha.1",
