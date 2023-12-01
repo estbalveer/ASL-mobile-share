@@ -52,7 +52,7 @@ class LoginScreen extends Component {
   componentDidUpdate(prevProps, _) {
     if (JSON.stringify(this.props.login_user) !== JSON.stringify(prevProps.login_user)) {
       let userData = this.props.login_user
-      if (this.state.isLoading) {
+      if (!userData.loading) {
         if (userData.error != null) {
           SimpleToast.show("Login Failed.")
           this.setState({ isLoading: false })

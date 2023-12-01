@@ -21,7 +21,7 @@ function createMapTracking(body) {
             resolve(res);
         })
         .catch(error => {
-            console.error(error,'errorrrrrrrrrr')
+            console.error(error,'error track location')
             reject(error)
         })
     })

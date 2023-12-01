@@ -6,6 +6,8 @@ import MapScreen from '../screens/Admin/Map';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
 import FeatherIcon from 'react-native-vector-icons/Feather'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import AccountScreen from '../screens/Admin/Account';
 
 export const AdminStack = createMaterialBottomTabNavigator(
   {
@@ -18,21 +20,30 @@ export const AdminStack = createMaterialBottomTabNavigator(
         )
       }
     },
-    ScheduleAdmin: {
-      screen: ScheduleScreen,
+    // ScheduleAdmin: {
+    //   screen: ScheduleScreen,
+    //   navigationOptions: {
+    //     tabBarLabel: 'Schedule',
+    //     tabBarIcon: ({ tintColor }) => (
+    //       <MaterialCommunityIcons name="calendar" size={18} color={tintColor} />
+    //     )
+    //   }
+    // },
+    // MapAdmin: {
+    //   screen: MapScreen,
+    //   navigationOptions: {
+    //     tabBarLabel: 'Map',
+    //     tabBarIcon: ({ tintColor }) => (
+    //       <FeatherIcon name="map" size={18} color={tintColor} />
+    //     )
+    //   }
+    // },
+    AccountAdmin: {
+      screen: AccountScreen,
       navigationOptions: {
-        tabBarLabel: 'Schedule',
+        tabBarLabel: 'Account',
         tabBarIcon: ({ tintColor }) => (
-          <MaterialCommunityIcons name="calendar" size={18} color={tintColor} />
-        )
-      }
-    },
-    MapAdmin: {
-      screen: MapScreen,
-      navigationOptions: {
-        tabBarLabel: 'Map',
-        tabBarIcon: ({ tintColor }) => (
-          <FeatherIcon name="map" size={18} color={tintColor} />
+          <FontAwesome5 name="user-circle" size={18} color={tintColor} />
         )
       }
     },

@@ -117,7 +117,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="redacted" />
+            android:value="AIzaSyDJe5pWyxzTkHoBFRdwJ1-6UcZ_DJZZ2dQ" />
 
         <service android:name="com.asterinet.react.bgactions.RNBackgroundActionsTask" />
 

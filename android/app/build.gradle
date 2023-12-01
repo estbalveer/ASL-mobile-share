@@ -151,7 +151,7 @@ android {
         applicationId 'com.scouthippo2'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 22
+        versionCode 27
         versionName '1.0'
     }
     splits {

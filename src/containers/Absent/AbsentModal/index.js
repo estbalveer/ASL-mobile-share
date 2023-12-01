@@ -19,14 +19,21 @@ const AbsentModal = ({
 
   const getTotalTime = () => {
     if (!data?.check_in_datetime || !data?.check_out_datetime) {
-      return '-'
+      return '-';
     }
+  
     const checkin = moment(data?.check_in_datetime);
     const checkout = moment(data?.check_out_datetime);
-    const duration = moment.duration(checkin.diff(checkout))
-    const formattedDifference = moment.utc(duration.as('milliseconds')).format("HH:mm");
-    return formattedDifference
-  }
+  
+    if (!checkin.isValid() || !checkout.isValid()) {
+      return 'Invalid date/time';
+    }
+  
+    const duration = moment.duration(checkout.diff(checkin));
+    const formattedDifference = moment.utc(duration.as('milliseconds')).format('HH:mm');
+    
+    return formattedDifference;
+  };
 
   const getAddressFromCoordinates = async ({ latitude, longitude }) => {
     const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${GOOGLE_MAP_API_KEY}`);

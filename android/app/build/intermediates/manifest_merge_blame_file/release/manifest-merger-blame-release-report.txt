@@ -227,7 +227,7 @@
 118-->/Users/giorgiogunawan/Desktop/scouthippo/ASL-mobile/android/app/src/main/AndroidManifest.xml:43:5-45:65
 119            android:name="com.google.android.geo.API_KEY"
 119-->/Users/giorgiogunawan/Desktop/scouthippo/ASL-mobile/android/app/src/main/AndroidManifest.xml:44:7-52
-120            android:value="redacted" />
+120            android:value="AIzaSyDJe5pWyxzTkHoBFRdwJ1-6UcZ_DJZZ2dQ" />
 120-->/Users/giorgiogunawan/Desktop/scouthippo/ASL-mobile/android/app/src/main/AndroidManifest.xml:45:7-62
 121
 122        <service android:name="com.asterinet.react.bgactions.RNBackgroundActionsTask" />
