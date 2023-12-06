@@ -6,6 +6,9 @@ platform :ios, '13.0'
 target 'ScoutHippo' do
   config = use_native_modules!
 
+rn_maps_path = '../node_modules/react-native-maps'
+pod 'react-native-google-maps', :path => rn_maps_path
+
   use_react_native!(
     :path => config["reactNativePath"],
     # :hermes_enabled => true
